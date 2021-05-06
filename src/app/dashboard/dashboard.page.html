@@ -1,6 +1,8 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
+  <ion-toolbar color="primary">
+    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png"></ion-img>
+    <ion-buttons class="btn btn-primary" slot="primary" (click)="logout()">Log out</ion-buttons>
+    <ion-title>My account</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,10 +21,25 @@
     </ion-row>
   </ion-grid>
 
+  <ion-tabs>
+    <ion-tab-bar slot="listProducts">
+      <ion-tab-button tab="schedule">
+        <ion-icon src="../../assets/icon/bullet-list.svg"></ion-icon>
+        <ion-label>List products</ion-label>
+        <ion-badge>10</ion-badge>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="myAccount">
+        <ion-icon name="person-circle" color="primary"></ion-icon>
+        <ion-label color="primary">My account</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="myProduct">
+        <ion-icon src="../../assets/icon/inventory.svg"></ion-icon>
+        <ion-label>My products</ion-label>
+      </ion-tab-button>
 
+    </ion-tab-bar>
+  </ion-tabs>
+  
 </ion-content>
-<ion-footer (click)="logout()">
-  <ion-toolbar color="secondary">
-    <ion-title>Log out</ion-title>
-  </ion-toolbar>
-</ion-footer>

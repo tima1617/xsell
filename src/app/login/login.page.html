@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
+    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png"></ion-img>
+    <ion-title>Xsell</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
   <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
 
@@ -34,10 +34,19 @@
     </div>
 
     <ion-button class="submit-btn" type="submit" [disabled]="!validations_form.valid">Log In</ion-button>
-
+    
     <label class="error-message">{{errorMessage}}</label>
   </form>
   <p class="go-to-register">
     No account yet? <a (click)="goToRegisterPage()">Create an account.</a>
   </p>
+</ion-content>
+<ion-content>
+  <form *ngIf="!user">
+    <ion-row>
+      <ion-col> 
+        <ion-button type="submit" color="primary" (click)="login()" expand="block">Login with Google</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

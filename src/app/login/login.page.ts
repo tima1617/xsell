@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { firebase } from '@firebase/app'
+import '@firebase/auth'
 import { AuthenticateService } from '../services/authentication.service';
+
 
 @Component({
   selector: 'app-login',
@@ -9,7 +13,7 @@ import { AuthenticateService } from '../services/authentication.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  user = null;
   validations_form: FormGroup;
   errorMessage: string = '';
 
@@ -17,9 +21,14 @@ export class LoginPage implements OnInit {
 
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
-
-  ) { }
+    private formBuilder: FormBuilder,
+    public fireAuth: AngularFireAuth
+    
+  ) { 
+    this.fireAuth.authState.subscribe((user) => {
+      this.user = user ? user : null;
+    });
+  }
 
   ngOnInit() {
 
@@ -58,6 +67,18 @@ export class LoginPage implements OnInit {
         this.errorMessage = err.message;
       })
   }
+  
+  login() {
+    this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+      this.navCtrl.navigateForward('/dashboard');
+    });
+
+  }
+
+  logout() {
+    this.fireAuth.signOut();
+  }
+
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');

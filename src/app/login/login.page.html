@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png"></ion-img>
+    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="start"></ion-img>
     <ion-title>Xsell</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -40,8 +40,6 @@
   <p class="go-to-register">
     No account yet? <a (click)="goToRegisterPage()">Create an account.</a>
   </p>
-</ion-content>
-<ion-content>
   <form *ngIf="!user">
     <ion-row>
       <ion-col> 

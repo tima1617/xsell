@@ -1,10 +1,13 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png"></ion-img>
-    <ion-buttons class="btn btn-primary" slot="primary" (click)="logout()">Log out</ion-buttons>
-    <ion-title>My account</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar color="primary">
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary">
+  </ion-img>
+
+  <ion-title>My account</ion-title>
+
+  <ion-buttons slot="primary">
+    <ion-button class="btn btn-primary" slot="primary" (click)="logout()">Log Out</ion-button>
+  </ion-buttons>
+</ion-toolbar>
 
 <ion-content class="ion-padding">
 

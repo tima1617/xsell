@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authentication.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { CrudService } from './../services/crud.service';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -26,6 +27,7 @@ export class DashboardPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private db: AngularFirestore,
+    private crudService: CrudService
   ) {
    }
 
@@ -35,14 +37,12 @@ export class DashboardPage implements OnInit {
     this.authService.userDetails().subscribe(res => {
       if (res !== null) {
         this.userEmail = res.email;
-        this.getuser(this.userEmail).subscribe((data)=>{
+        this.crudService.getUser(this.userEmail).subscribe((data)=>{
           this.data = data;
-          console.log(this.data[0])
           var user = {
             uid: this.data[0].UID,
             email: this.data[0].email
           }
-          console.log(user);
       });
 
       } else {
@@ -64,9 +64,5 @@ export class DashboardPage implements OnInit {
       })
   }
 
-  //Permet de réupérer le user associé à l'adresse email rentrée précèdemment
-  getuser(userEmail: string):Observable<any>{
-    return this.db.collection<any>("users", ref => ref.where('email','==',this.userEmail)).valueChanges();
-  }
 }
 

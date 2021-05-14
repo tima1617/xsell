@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="start"></ion-img>
-    <ion-title>Xsell</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
+<div style="height: 30vh;">
+  <ion-img class="logo" src="../../assets/img/logo.png"></ion-img>
+</div>
 <ion-content class="ion-padding">
   <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
 
@@ -43,7 +45,7 @@
   <form *ngIf="!user">
     <ion-row>
       <ion-col> 
-        <ion-button type="submit" color="primary" (click)="loginGoogle()" expand="block">Login with Google</ion-button>
+        <ion-button type="submit" color="primary" (click)="loginGoogle()" expand="block">Sign in with Google</ion-button>
       </ion-col>
     </ion-row>
   </form>

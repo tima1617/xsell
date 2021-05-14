@@ -9,43 +9,67 @@
   </ion-buttons>
 </ion-toolbar>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item>
+      <ion-label position="stacked" class="title">Address</ion-label>
+      <ion-input formControlName="name" type="text" [(ngModel)]="paramName" placeholder="Your name"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+        Your name is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+        Your name must be 5 chars long.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.pattern">
+        Your name must contain only letters.
+      </span>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        Welcome to Dashboard!
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col text-center>
-        Your Registered EmailID : {{userEmail}}
-      </ion-col>
-    </ion-row>
+      <ion-input formControlName="email" type="email" [(ngModel)]="paramEmail" placeholder="Email" disabled></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
+        Your email is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
+        Enter a valid email.
+      </span>
+
+      <ion-label position="stacked">Date of birth</ion-label>
+      <ion-datetime formControlName="dob" [value]="defaultDate" [(ngModel)]="paramDob" placeholder="May 15, 2021" ></ion-datetime>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.dob.errors?.required">
+        Your date of birth is required.
+      </span>
+      <ion-input maxlength="10" formControlName="phone" type="text" required [(ngModel)]="paramPhone" placeholder="Phone"></ion-input>
+      
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.required">
+        Your phone number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.pattern">
+        Your name must contain only numbers.
+      </span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" class="title">Address</ion-label>
+      <ion-input formControlName="addressLine" [(ngModel)]="paramAddressLine" placeholder="Address Line"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.addressLine.errors?.required">
+        Your address Line is required.
+      </span>
+      <ion-input formControlName="city" [(ngModel)]="paramCity" placeholder="City"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.city.errors?.required">
+        Your city is required.
+      </span>
+      <ion-input formControlName="state" [(ngModel)]="paramState" placeholder="State"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
+        Your state is required.
+      </span>
+      <ion-input formControlName="zip" [(ngModel)]="paramZip" placeholder="Zip Code"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.zip.errors?.required">
+        Your zip code is required.
+      </span>
+    </ion-item>
+
     <ion-row>
       <ion-col>
-        Test {{ user }}
+        <ion-button type="submit" color="primary" expand="block">Submit</ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
-  <ion-tabs>
-    <ion-tab-bar slot="listProducts">
-      <ion-tab-button tab="schedule">
-        <ion-icon src="../../assets/icon/bullet-list.svg"></ion-icon>
-        <ion-label>List products</ion-label>
-        <ion-badge>10</ion-badge>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="myAccount">
-        <ion-icon name="person-circle" color="primary"></ion-icon>
-        <ion-label color="primary">My account</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="myProduct">
-        <ion-icon src="../../assets/icon/inventory.svg"></ion-icon>
-        <ion-label>My products</ion-label>
-      </ion-tab-button>
-
-    </ion-tab-bar>
-  </ion-tabs>  
+  </form>
 </ion-content>

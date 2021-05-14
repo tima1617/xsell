@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   user = null;
   validations_form: FormGroup;
   errorMessage: string = '';
+  data: any;
 
   constructor(
 
@@ -66,7 +67,7 @@ export class LoginPage implements OnInit {
         console.log(value);
         
         this.errorMessage = "";
-        //this.navCtrl.navigateForward('/dashboard');
+        this.navCtrl.navigateForward('/dashboard');
 
         
       }, err => {
@@ -78,13 +79,17 @@ export class LoginPage implements OnInit {
     this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
       var user = firebase.auth().currentUser;
         if (user) {
-          console.log("ici");
           var userAdd = {
             email: user.email,
             uid: user.uid
           }
-          console.log(userAdd);
-          this.crudService.createUser(userAdd);
+          //Permet d'ajouter le user dans la bdd si il n'y est pas
+          this.crudService.getUser(userAdd.email).subscribe((data)=>{
+            this.data = data;
+            if(data.length === 0){
+              this.crudService.createUser(userAdd);
+            }
+        });
         } else {
         }
       this.navCtrl.navigateForward('/dashboard');

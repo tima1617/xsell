@@ -39,13 +39,33 @@ export class CrudService {
     this.ngFirestore.doc('tasks/' + id).delete();
   }
 
+  
   getUser(userEmail: string):Observable<any>{
-    return this.db.collection<any>("users", ref => ref.where('email','==',userEmail)).valueChanges();
+    return this.db.collection<any>("users", ref => ref.where('email','==',userEmail)).snapshotChanges();
   }
+
+  getAllUsers() {
+    return this.db.collection('users',).snapshotChanges();
+  }
+
 
   createUser(user){
     return this.db.collection("users").add(user);
   }
 
-
+  updateUser(user, id){
+    return this.db
+    .collection("users")
+    .doc(id)
+    .update({
+      name: user.name,
+      email: user.email,
+      dob: user.dob,
+      phone: user.phone,
+      address_line: user.address_line,
+      city: user.city,
+      state: user.state,
+      zip: user.zip
+    });
+  }
 }

@@ -57,12 +57,10 @@ export class RegisterPage implements OnInit {
       .then(res => {
         var user = firebase.auth().currentUser;
         if (user) {
-          console.log("ici");
           var userAdd = {
             email: user.email,
             uid: user.uid
           }
-          console.log(userAdd);
           this.crudService.createUser(userAdd);
         } else {
         }

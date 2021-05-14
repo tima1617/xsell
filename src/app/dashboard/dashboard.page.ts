@@ -31,6 +31,7 @@ export class DashboardPage implements OnInit {
   paramState = "";
   paramZip = "";
   paramId = "";
+  paramValid = false;
   userEmail: string;
   user:{
     uid: string,
@@ -59,13 +60,17 @@ export class DashboardPage implements OnInit {
             this.paramId = e.payload.doc.id;
             this.paramName = e.payload.doc.get('name'),
             this.paramEmail = e.payload.doc.get('email');
-            this.paramDob = this.formatDate(e.payload.doc.get('dob').seconds *1000).toString();
+            if(e.payload.doc.get('dob') != undefined){
+              this.paramDob = this.formatDate(e.payload.doc.get('dob').seconds *1000).toString();
+            }else{
+              this.paramDob = "2020-02-02";
+            }
             this.paramPhone = e.payload.doc.get('phone');
             this.paramAddressLine = e.payload.doc.get('address_line');
             this.paramCity = e.payload.doc.get('city');
             this.paramState = e.payload.doc.get('state');
             this.paramZip = e.payload.doc.get('zip');
-
+            this.paramValid = e.payload.doc.get('valid');
           })
         });
       } else {
@@ -111,12 +116,11 @@ export class DashboardPage implements OnInit {
         address_line: this.myForm.value.addressLine,
         city: this.myForm.value.city,
         state: this.myForm.value.state,
-        zip: this.myForm.value.zip
+        zip: this.myForm.value.zip,
+        valid: true
       }
-      console.log(id)
       this.crudService.updateUser(user,id);
-      console.log(user)
-      
+      this.navCtrl.navigateForward('/all-products');
     }
   }
 
@@ -125,13 +129,12 @@ export class DashboardPage implements OnInit {
   logout() {
     this.authService.logoutUser()
       .then(res => {
-        console.log(res);
         this.navCtrl.navigateBack('');
       })
       .catch(error => {
-        console.log(error);
       })
   }
+
 
   formatDate(date) {
     var d = new Date(date),

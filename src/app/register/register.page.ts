@@ -4,6 +4,7 @@ import { AuthenticateService } from '../services/authentication.service';
 import { NavController } from '@ionic/angular';
 import { CrudService } from './../services/crud.service';
 import { firebase } from '@firebase/app'
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -31,11 +32,13 @@ export class RegisterPage implements OnInit {
       { type: 'minlength', message: 'Password must be at least 5 characters long.' }
     ]
   };
+  data: any;
 
   constructor(
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
+    public fireAuth: AngularFireAuth,
     private crudService: CrudService
   ) { }
 
@@ -71,6 +74,28 @@ export class RegisterPage implements OnInit {
         this.errorMessage = err.message;
         this.successMessage = "";
       })
+  }
+
+  loginGoogle() {
+    this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+      var user = firebase.auth().currentUser;
+        if (user) {
+          var userAdd = {
+            email: user.email,
+            uid: user.uid
+          }
+          //Permet d'ajouter le user dans la bdd si il n'y est pas
+          this.crudService.getUser(userAdd.email).subscribe((data)=>{
+            this.data = data;
+            if(data.length === 0){
+              this.crudService.createUser(userAdd);
+            }
+        });
+        } else {
+        }
+      this.navCtrl.navigateForward('/dashboard');
+    });
+
   }
 
   goLoginPage() {

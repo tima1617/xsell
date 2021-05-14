@@ -7,5 +7,6 @@ export class User {
     city: string;
     state: string;
     zip: string;
+    valid: boolean;
     uid: string;
 }

@@ -65,7 +65,8 @@ export class CrudService {
       address_line: user.address_line,
       city: user.city,
       state: user.state,
-      zip: user.zip
+      zip: user.zip,
+      valid: user.valid
     });
   }
 }

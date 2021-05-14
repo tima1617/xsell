@@ -63,12 +63,21 @@ export class LoginPage implements OnInit {
   loginUser(value) {
     this.authService.loginUser(value)
       .then(res => {
-        console.log(res);
-        console.log(value);
-        
-        this.errorMessage = "";
-        this.navCtrl.navigateForward('/dashboard');
 
+        var user = firebase.auth().currentUser;
+        if (user) {
+          var userAdd = {
+            email: user.email,
+            uid: user.uid
+          }
+          console.log("email : "+user.email)
+          //Permet d'ajouter le user dans la bdd si il n'y est pas
+          this.crudService.getUser(userAdd.email).subscribe((data)=>{
+            this.data = data;
+            this.errorMessage = "";
+            this.navCtrl.navigateForward('/all-products');
+        });
+      }
         
       }, err => {
         this.errorMessage = err.message;

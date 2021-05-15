@@ -10,6 +10,7 @@ import 'firebase/firestore';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { User } from './../models/user.model';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -38,6 +39,8 @@ export class DashboardPage implements OnInit {
     email: string
   }
   data:any
+  birthday: any;
+   
 
   constructor(
     private navCtrl: NavController,
@@ -50,7 +53,10 @@ export class DashboardPage implements OnInit {
 
   
   ngOnInit() {
-    
+    const now = new Date();
+    this.birthday = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
+    console.log(this.formatDate(this.birthday))
+    this.birthday = this.formatDate(this.birthday)
     //Permet de vérifier si le user est bien connecté, sinon il est renvoyé page login
     this.authService.userDetails().subscribe(res => {
       if (res !== null) {

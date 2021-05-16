@@ -98,10 +98,11 @@ export class CreateProductPage implements OnInit {
           this.users = data.map(e => {
             this.userId = e.payload.doc.id,
             this.userValid = e.payload.doc.get('valid')
+            console.log(this.userValid)
           })
         });
       } else {
-        this.navCtrl.navigateBack('');
+        this.navCtrl.navigateBack('/login');
       }
     }, err => {
     });

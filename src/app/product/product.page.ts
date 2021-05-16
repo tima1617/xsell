@@ -22,6 +22,7 @@ export class ProductPage implements OnInit {
   hours: number;
   minutes: number;
   seconds: number;
+  countdown: any;
 
   constructor(private act: ActivatedRoute,private productService: ProductService) { }
   
@@ -34,15 +35,13 @@ export class ProductPage implements OnInit {
         this.price = this.productRef.price;
         this.condition = this.productRef.condition;
         this.datelimit = this.productRef.date_limit;
-        console.log("Aujourd'hui : "+new Date().getTime()/1000)
-        console.log("Date max : "+this.datelimit)
-        console.log()
         var today = new Date().getTime()/1000;
+        this.datelimit = this.datelimit.toDate().getTime()/1000
         this.maxtime = this.datelimit - today
         //console.log(this.timer)
-        this.StartTimer();
       }
-    })
+    });
+    this.StartTimer();
   }
 
   StartTimer(){
@@ -50,12 +49,12 @@ export class ProductPage implements OnInit {
       {
           if(this.maxtime <= 0) { }
           this.maxtime -= 1;
-          this.days = Math.floor(this.maxtime / (1000 * 60 * 60 * 24));
-          this.hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          this.minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-          this.seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
-          //console.log(this.maxtime)
-          //console.log(this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s ")
+          this.days = Math.floor(this.maxtime / (60 * 60 * 24));
+          this.hours = Math.floor((this.maxtime % (60 * 60 * 24)) / (60 * 60));
+          this.minutes = Math.floor((this.maxtime % (60 * 60)) / (60));
+          this.seconds = Math.floor((this.maxtime % (60)));
+          this.countdown = this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s "
+          console.log(this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s ")
 
           if(this.maxtime>0){
             this.hidevalue = false;

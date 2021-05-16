@@ -30,16 +30,14 @@ export class CreateProductPage implements OnInit {
   submitted = false;
   users: User[];
   userEmail: string;
-  user:{
-    uid: string,
-    email: string
-  }
+  userId: string;
   data:any
   birthday: any;
   today: any;
   maxDate: any;
   product: any;
   ref: string;
+  imageRef: any;
 
   
   // File upload task 
@@ -97,6 +95,7 @@ export class CreateProductPage implements OnInit {
         this.userEmail = res.email;
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
+            this.userId = e.payload.doc.id
           })
         });
       } else {
@@ -144,7 +143,45 @@ export class CreateProductPage implements OnInit {
       //  valid: true
       //}
       //this.crudService.updateUser(user,id);
+      this.trackSnapshot = this.fileUploadTask.snapshotChanges().pipe(
+    
+        finalize(() => {
+          // Retreive uploaded image storage path
+          this.UploadedImageURL = this.imageRef.getDownloadURL();
+          let todayDate = Date.now();
+    
+    
+    
+          this.UploadedImageURL.subscribe(resp=>{
+            this.product = {
+              name: this.myForm.value.title,
+              price: this.myForm.value.price,
+              date_limit: new Date(this.myForm.value.dateLimit),
+              description : this.myForm.value.description,
+              condition: this.myForm.value.state,
+              sold: false,
+              ref: resp,
+              created_at: todayDate,
+              user_id: this.userId
+            }
+            console.log(this.product)
+            this.productService.createProduct(this.product);
+            this.isFileUploading = false;
+            this.isFileUploaded = true;
+          },error=>{
+            console.log(error);
+          })
+        }),
+        tap(snap => {
+            this.imgSize = snap.totalBytes;
+        })
+      )
+      this.trackSnapshot.subscribe(() => {
+    }, (error) => {
+        console.log(error);
+    }, () => {
       this.navCtrl.navigateForward('/all-products');
+    });
     }
   }
 
@@ -193,45 +230,13 @@ uploadImage(event: FileList) {
   const fileStoragePath = `filesStorage/${new Date().getTime()}_${file.name}`;
 
   // Image reference
-  const imageRef = this.afStorage.ref(fileStoragePath);
+  this.imageRef = this.afStorage.ref(fileStoragePath);
 
   // File upload task
   this.fileUploadTask = this.afStorage.upload(fileStoragePath, file);
 
   // Show uploading progress
   this.percentageVal = this.fileUploadTask.percentageChanges();
-  this.trackSnapshot = this.fileUploadTask.snapshotChanges().pipe(
-    
-    finalize(() => {
-      // Retreive uploaded image storage path
-      this.UploadedImageURL = imageRef.getDownloadURL();
-      let todayDate = Date.now();
-
-
-
-      this.UploadedImageURL.subscribe(resp=>{
-        this.product = {
-          name: this.myForm.value.title,
-          price: this.myForm.value.price,
-          date_limit: new Date(this.myForm.value.dateLimit),
-          description : this.myForm.value.description,
-          condition: this.myForm.value.state,
-          sold: false,
-          ref: resp,
-          created_at: todayDate
-        }
-        console.log(this.product)
-        this.productService.createProduct(this.product);
-        this.isFileUploading = false;
-        this.isFileUploaded = true;
-      },error=>{
-        console.log(error);
-      })
-    }),
-    tap(snap => {
-        this.imgSize = snap.totalBytes;
-    })
-  )
 }
 
 

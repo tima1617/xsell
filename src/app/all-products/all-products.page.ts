@@ -18,8 +18,7 @@ export class AllProductsPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.getUrlImages('/product_img/Jordan_VI_UNC.jpg');
-    this.url = '/product_img/Jordan_VI_UNC.jpg'
+
     let test = this.products();
   }
 
@@ -40,15 +39,14 @@ export class AllProductsPage implements OnInit {
           updateTime: e.payload.doc.get('updateTime'),
           ref: e.payload.doc.get('ref'),
           condition: e.payload.doc.get('condition'),
-          sold: false,
-          test: this.getUrlImages('/product_img/Jordan_VI_UNC.jpg')
+          sold: false
         } as Product
       })
     })
   }
 
   getUrlImages(ref){
-    this.afSG.ref('/product_img/Jordan_VI_UNC.jpg').getDownloadURL().subscribe(imgUrl => {
+    this.afSG.ref(ref).getDownloadURL().subscribe(imgUrl => {
         this.url = imgUrl;
         //console.log(imgUrl)
         return this.url

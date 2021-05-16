@@ -1,10 +1,6 @@
-import { AuthenticateService } from './../services/authentication.service';
-import { User } from './../models/user.model';
-import { CrudService } from './../services/crud.service';
 import { ProductService } from './../services/product/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -13,13 +9,11 @@ import { NavController } from '@ionic/angular';
 })
 export class ProductPage implements OnInit {
   id = this.act.snapshot.paramMap.get('id');
-  actualUserId: string;
   productRef: any;
   name: string;
   description: string;
   price: number;
   condition: string;
-  userId: string;
   maxtime: any;
   timer: any;
   hidevalue: boolean;
@@ -30,13 +24,7 @@ export class ProductPage implements OnInit {
   seconds: number;
   countdown: any;
 
-  constructor(
-    private act: ActivatedRoute,
-    private productService: ProductService, 
-    private navCtrl: NavController, 
-    private CrudService: CrudService,
-    private AuthenticateService: AuthenticateService
-    ) { }
+  constructor(private act: ActivatedRoute,private productService: ProductService) { }
   
   ngOnInit() {    
     this.productService.getProductDoc(this.id).subscribe(res => {
@@ -47,16 +35,10 @@ export class ProductPage implements OnInit {
         this.price = this.productRef.price;
         this.condition = this.productRef.condition;
         this.datelimit = this.productRef.date_limit;
-        this.userId = this.productRef.user_id;
         var today = new Date().getTime()/1000;
         this.datelimit = this.datelimit.toDate().getTime()/1000
         this.maxtime = this.datelimit - today
-
-        this.StartTimer();
-        
-        this.AuthenticateService.userDetails().subscribe(res => {
-          this.actualUserId = res.uid    
-        })
+        //console.log(this.timer)
       }
     });
     this.StartTimer();
@@ -86,18 +68,5 @@ export class ProductPage implements OnInit {
       }, 1000);
  
 
-  }
-
-  getUserId()
-  {
-    this.AuthenticateService.userDetails().subscribe(res => {
-      this.actualUserId = res.uid    
-    })
-  }
-
-  deleteProduct(product)
-  {
-    this.productService.createProduct(product);
-    this.navCtrl.navigateForward('/my-products');
   }
 }

@@ -42,14 +42,5 @@ export class AllProductsPage implements OnInit {
         } as Product
       })
     })
-  }
-
-  getUrlImages(ref){
-    this.afSG.ref(ref).getDownloadURL().subscribe(imgUrl => {
-        this.url = imgUrl;
-        //console.log(imgUrl)
-        return this.url
-    });
-  }
-  
+  }  
 }

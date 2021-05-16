@@ -31,6 +31,7 @@ export class CreateProductPage implements OnInit {
   users: User[];
   userEmail: string;
   userId: string;
+  userValid: boolean;
   data:any
   birthday: any;
   today: any;
@@ -95,7 +96,9 @@ export class CreateProductPage implements OnInit {
         this.userEmail = res.email;
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
-            this.userId = e.payload.doc.id
+            this.userId = e.payload.doc.id,
+            this.userValid = e.payload.doc.get('valid')
+            console.log('this.userValid = '+this.userValid)
           })
         });
       } else {
@@ -111,7 +114,7 @@ export class CreateProductPage implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       price: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       dateLimit: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(30)]],
       state: ['', [Validators.required]],
       file:  ['', [Validators.required]]
     })
@@ -248,6 +251,10 @@ storeFilesFirebase(image: imgFile) {
   }).catch(err => {
     console.log(err);
   });
+}
+
+setUpInformation(){
+  this.navCtrl.navigateForward('/dashboard');
 }
 
 

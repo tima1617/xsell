@@ -10,23 +10,21 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class AllProductsPage implements OnInit {
   Products: Product[];
-  test: void;
   url: any;
+
   constructor(
     private ProductService: ProductService,
-    public afSG: AngularFireStorage
+    public afSG: AngularFireStorage,
     ) { }
 
   ngOnInit() {
-
-    let test = this.products();
+    this.products();
   }
 
   products() 
   {
     this.ProductService.getProductList().subscribe(res => {
       this.Products = res.map(e => {
-        console.log(this.Products)
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.get('name'),
@@ -44,13 +42,7 @@ export class AllProductsPage implements OnInit {
       })
     })
   }
+  
 
-  getUrlImages(ref){
-    this.afSG.ref(ref).getDownloadURL().subscribe(imgUrl => {
-        this.url = imgUrl;
-        //console.log(imgUrl)
-        return this.url
-    });
-  }
   
 }

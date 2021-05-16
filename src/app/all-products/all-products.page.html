@@ -17,8 +17,6 @@
       <ion-label [routerLink]="['/product', product.id]">
         <h2>{{ product.name }}</h2>
         <h3>{{ product.price }}€</h3>
-        <h3> {{ product.date_limit.toDate() }} </h3>
-        <app-countdown-timer class="item-countdown" [end]="product.date_limit" [units]="{from: 'day', to: 'second'}"></app-countdown-timer>
       </ion-label>
     </ion-item>
   </ion-list>

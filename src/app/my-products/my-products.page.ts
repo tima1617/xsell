@@ -34,6 +34,7 @@ export class MyProductsPage implements OnInit {
   {
     this.ProductService.getProductByUser(id).subscribe(res => {
       this.Products = res.map(e => {
+        console.log(e.payload.doc.get('sold'))
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.get('name'),
@@ -46,19 +47,9 @@ export class MyProductsPage implements OnInit {
           updateTime: e.payload.doc.get('updateTime'),
           ref: e.payload.doc.get('ref'),
           condition: e.payload.doc.get('condition'),
-          sold: false,
-          test: this.getUrlImages('/product_img/Jordan_VI_UNC.jpg')
+          sold: e.payload.doc.get('sold')
         } as Product
       })
     })
   }
-
-  getUrlImages(ref){
-    this.afSG.ref('/product_img/Jordan_VI_UNC.jpg').getDownloadURL().subscribe(imgUrl => {
-        this.url = imgUrl;
-        //console.log(imgUrl)
-        return this.url
-    });
-  }
-
 }

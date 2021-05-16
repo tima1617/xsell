@@ -17,6 +17,12 @@
       <ion-label [routerLink]="['/product', product.id]">
         <h2>{{ product.name }}</h2>
         <h3>{{ product.price }}€</h3>
+        <div *ngIf="product.sold">
+          <ion-button color="danger">Sold</ion-button>
+        </div>
+        <div *ngIf="!product.sold">
+          <ion-button>In Progress</ion-button>
+        </div>
       </ion-label>
     </ion-item>
   </ion-list>

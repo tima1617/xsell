@@ -11,6 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class AllProductsPage implements OnInit {
   Products: Product[];
   url: any;
+  noOffert: boolean;
   datelimit: any;
   days: number;
   hours: number;
@@ -33,6 +34,9 @@ export class AllProductsPage implements OnInit {
   products() 
   {
     this.ProductService.getProductList().subscribe(res => {
+      if(res.length === 0){
+        this.noOffert = true;
+      }
       this.Products = res.map(e => {
         var today = new Date().getTime()/1000;
         this.datelimit = e.payload.doc.get('date_limit').toDate().getTime()/1000

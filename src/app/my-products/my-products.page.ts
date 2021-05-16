@@ -1,9 +1,8 @@
-import { CrudService } from './../services/crud.service';
 import { AuthenticateService } from './../services/authentication.service';
 import { ProductService } from './../services/product/product.service';
 import { Product } from './../models/product.model';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
+
 @Component({
   selector: 'app-my-products',
   templateUrl: './my-products.page.html',
@@ -11,30 +10,25 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class MyProductsPage implements OnInit {
   Products: Product[];
-  userEmail: string;
-  user: any;
   userId: string;
-  url: any;
+  noOffert: boolean;
 
-  constructor(private ProductService: ProductService, public afSG: AngularFireStorage, private authService: AuthenticateService, private crudService: CrudService) { }
+  constructor(private ProductService: ProductService, private authService: AuthenticateService) { }
 
   ngOnInit() {
     this.authService.userDetails().subscribe(res => {
-      this.userEmail = res.email;
-      this.crudService.getUser(this.userEmail).subscribe(data => {
-        this.user = data.map(e => {
-          this.userId = e.payload.doc.id
+      this.userId = res.uid;
           this.products(this.userId)
-        })
-      })      
-    });
+        })     
   }
 
   products(id) 
   {
     this.ProductService.getProductByUser(id).subscribe(res => {
+      if(res.length === 0 ){
+        this.noOffert = true;
+      }
       this.Products = res.map(e => {
-        console.log(e.payload.doc.get('sold'))
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.get('name'),

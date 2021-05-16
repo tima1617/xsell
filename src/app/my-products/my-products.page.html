@@ -9,6 +9,7 @@
   </ion-buttons>
 </ion-toolbar>
 <ion-content>
+  <ion-button [routerLink]="['/all-products']">All products</ion-button>
   <ion-list>
     <ion-item *ngFor="let product of Products let i = index">
       <ion-avatar slot="start">

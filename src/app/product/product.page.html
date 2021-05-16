@@ -10,6 +10,8 @@
 </ion-toolbar>
 
 <ion-content>
+  <ion-button [routerLink]="['/all-products']" > Return </ion-button>
+
   <ion-img *ngIf="productRef"[src]="productRef.ref"></ion-img>
   <ion-item>
   <ion-label><h2>Price :</h2> {{ price }}€</ion-label>

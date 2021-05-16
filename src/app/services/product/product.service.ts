@@ -39,10 +39,6 @@ export class ProductService {
     .snapshotChanges();
   }
 
-  getUrlImage(ref){
-    this.afSG
-  }
-
   deleteProduct(product) {
     console.log(product.id)
     return this.angularFirestore

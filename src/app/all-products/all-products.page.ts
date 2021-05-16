@@ -27,6 +27,7 @@ export class AllProductsPage implements OnInit {
   {
     this.ProductService.getProductList().subscribe(res => {
       this.Products = res.map(e => {
+        console.log(e.payload.doc)
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.get('name'),

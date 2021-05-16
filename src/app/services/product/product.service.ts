@@ -20,8 +20,9 @@ export class ProductService {
 
   getProductList()
   {
+    let test= false;
     return this.angularFirestore
-    .collection("products")
+    .collection("products", ref => ref.where('sold','==',test))
     .snapshotChanges();
   }
 

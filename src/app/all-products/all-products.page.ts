@@ -45,7 +45,7 @@ export class AllProductsPage implements OnInit {
   }
 
   getUrlImages(ref){
-    this.afSG.ref('/product_img/Jordan_VI_UNC.jpg').getDownloadURL().subscribe(imgUrl => {
+    this.afSG.ref(ref).getDownloadURL().subscribe(imgUrl => {
         this.url = imgUrl;
         //console.log(imgUrl)
         return this.url

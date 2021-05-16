@@ -40,11 +40,10 @@ export class ProductService {
     .snapshotChanges();
   }
 
-  deleteProduct(product) {
-    console.log(product.id)
+  deleteProduct(id) {
     return this.angularFirestore
       .collection("products")
-      .doc(product.id)
+      .doc(id)
       .delete();
   }
 

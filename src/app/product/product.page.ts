@@ -43,6 +43,7 @@ export class ProductPage implements OnInit {
         this.description = this.productRef.description;
         this.price = this.productRef.price;
         this.condition = this.productRef.condition;
+        this.userId = this.productRef.user_id;
         this.datelimit = this.productRef.date_limit;
         var today = new Date().getTime()/1000;
         this.datelimit = this.datelimit.toDate().getTime()/1000;
@@ -67,7 +68,6 @@ export class ProductPage implements OnInit {
           this.minutes = Math.floor((this.maxtime % (60 * 60)) / (60));
           this.seconds = Math.floor((this.maxtime % (60)));
           this.countdown = this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s "
-          console.log(this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s ")
 
           if(this.maxtime>0){
             this.hidevalue = false;
@@ -77,5 +77,11 @@ export class ProductPage implements OnInit {
               this.hidevalue = true;
           }
       }, 1000);
+  }
+
+  deleteProduct()
+  {
+    this.productService.deleteProduct(this.id);
+    this.navCtrl.navigateForward('/all-products');
   }
 }

@@ -1,5 +1,7 @@
 {
   "name": "ionic-firebase-email-authentication",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

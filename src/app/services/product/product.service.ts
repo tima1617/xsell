@@ -50,4 +50,8 @@ export class ProductService {
       .doc(product.id)
       .delete();
   }
+
+  createProduct(product) {
+    return this.angularFirestore.collection("products").add(product);
+  }
 }

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { CreateProductPage } from './create-product.page';
-
+import { FormatFileSizePipe } from './../pipe/format-file-size.pipe';
 
 @NgModule({
   imports: [
@@ -19,6 +19,6 @@ import { CreateProductPage } from './create-product.page';
       }
     ])
   ],
-  declarations: [CreateProductPage]
+  declarations: [CreateProductPage,FormatFileSizePipe]
 })
 export class CreateProductPageModule {}

@@ -29,7 +29,7 @@
         A starting price is requiered.
       </span>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.price.errors?.pattern">
-        Enter a valid price
+        Enter a valid price;
       </span>
 
       <ion-label position="stacked">Date limit (00:00)</ion-label>
@@ -45,12 +45,37 @@
 
       <ion-input formControlName="state" type="text" maxlength="20" placeholder="State : New, Good, Damaging"></ion-input>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
-        A starting price is requiered.
+        A state is requiered.
       </span>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.pattern">
-        Enter a valid price
+        Enter a valid price ;
       </span>
     </ion-item>
+    <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
+      <ion-card-header>
+        <ion-card-title>Choose Images to Upload</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button color="primary" size="medium">
+          <input type="file" (change)="uploadImage($event.target.files)" formControlName="file" />
+        </ion-button>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.file.errors?.required">
+          An image of the product is required.
+        </span>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- File upload progress bar -->
+    <div *ngIf="percentageVal | async as percentage">
+      Progress: {{ percentage | number }}%
+      <ion-progress-bar value="{{ percentage / 100 }}"></ion-progress-bar>
+    </div>
+
+    <div *ngIf="trackSnapshot | async as snap">
+      File size: {{ snap.totalBytes | formatFileSize }} 
+      
+      Data transfered: {{ snap.bytesTransferred | formatFileSize }}
+    </div>    
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="primary" expand="block">Submit</ion-button>

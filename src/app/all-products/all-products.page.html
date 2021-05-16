@@ -10,8 +10,8 @@
 </ion-toolbar>
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let product of Products let i = index">
-      <ion-avatar slot="start" [routerLink]="['/product', product.id]">
+    <ion-item *ngFor="let product of Products let i = index" [routerLink]="['/product', product.id]">
+      <ion-avatar slot="start">
         <ion-img [src]=product.ref></ion-img>
       </ion-avatar>
       <ion-label>

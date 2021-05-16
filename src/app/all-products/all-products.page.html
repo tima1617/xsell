@@ -14,8 +14,7 @@
       <ion-avatar slot="start">
         <ion-img [src]=product.ref></ion-img>
       </ion-avatar>
-      <ion-label>
-        <p>{{ i }}</p>
+      <ion-label [routerLink]="['/product', product.id]">
         <h2>{{ product.name }}</h2>
         <h3>{{ product.price }}€</h3>
       </ion-label>

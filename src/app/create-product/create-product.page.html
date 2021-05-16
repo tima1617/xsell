@@ -12,7 +12,7 @@
 <ion-content>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
     <ion-item style="text-align: left;">
-      <ion-label position="stacked" class="title">TEST</ion-label>
+      <ion-label position="stacked" class="title">Informations</ion-label>
       <ion-input formControlName="title" type="text" placeholder="Title"></ion-input>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.required">
         A title is requiered.
@@ -29,7 +29,7 @@
         Enter a valid price.
       </span>
 
-      <ion-label position="stacked">Date limit (00:00)</ion-label>
+      <ion-label position="stacked" class="titledate">Date limit (00:00)</ion-label>
       <ion-datetime formControlName="dateLimit" [value]="defaultDate" placeholder="May 15, 2021" [min]="today" [max]="maxDate"></ion-datetime>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.dateLimit.errors?.required">
         A limit date is requiered.
@@ -50,7 +50,7 @@
     </ion-item>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
       <ion-card-header>
-        <ion-card-title>Choose Images to Upload</ion-card-title>
+        <ion-card-title class="title upload">Choose Images to Upload</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-button color="primary" size="medium">

@@ -30,10 +30,7 @@ export class CreateProductPage implements OnInit {
   submitted = false;
   users: User[];
   userEmail: string;
-  user:{
-    uid: string,
-    email: string
-  }
+  userId: string;
   data:any
   birthday: any;
   today: any;
@@ -98,6 +95,7 @@ export class CreateProductPage implements OnInit {
         this.userEmail = res.email;
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
+            this.userId = e.payload.doc.id
           })
         });
       } else {
@@ -163,7 +161,8 @@ export class CreateProductPage implements OnInit {
               condition: this.myForm.value.state,
               sold: false,
               ref: resp,
-              created_at: todayDate
+              created_at: todayDate,
+              user_id: this.userId
             }
             console.log(this.product)
             this.productService.createProduct(this.product);

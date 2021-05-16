@@ -90,6 +90,7 @@ export class LoginPage implements OnInit {
           var userAdd = {
             email: user.email,
             uid: user.uid,
+            role: 0,
             valid: false
           }
           //Permet d'ajouter le user dans la bdd si il n'y est pas

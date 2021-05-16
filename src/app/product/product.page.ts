@@ -1,6 +1,9 @@
 import { ProductService } from './../services/product/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticateService } from './../services/authentication.service';
+import { User } from './../models/user.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -9,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductPage implements OnInit {
   id = this.act.snapshot.paramMap.get('id');
+  actualUserId: string;
+  userId: string;
   productRef: any;
   name: string;
   description: string;
@@ -24,7 +29,11 @@ export class ProductPage implements OnInit {
   seconds: number;
   countdown: any;
 
-  constructor(private act: ActivatedRoute,private productService: ProductService) { }
+  constructor(    
+    private act: ActivatedRoute,
+    private productService: ProductService, 
+    private navCtrl: NavController, 
+    private AuthenticateService: AuthenticateService) { }
   
   ngOnInit() {    
     this.productService.getProductDoc(this.id).subscribe(res => {
@@ -36,9 +45,13 @@ export class ProductPage implements OnInit {
         this.condition = this.productRef.condition;
         this.datelimit = this.productRef.date_limit;
         var today = new Date().getTime()/1000;
-        this.datelimit = this.datelimit.toDate().getTime()/1000
-        this.maxtime = this.datelimit - today
-        //console.log(this.timer)
+        this.datelimit = this.datelimit.toDate().getTime()/1000;
+        this.maxtime = this.datelimit - today;
+
+        this.AuthenticateService.userDetails().subscribe(res => {
+          this.actualUserId = res.uid    
+        })
+		
       }
     });
     this.StartTimer();
@@ -59,14 +72,10 @@ export class ProductPage implements OnInit {
           if(this.maxtime>0){
             this.hidevalue = false;
             this.StartTimer();
-          }
-          
+          } 
           else{
               this.hidevalue = true;
           }
-
       }, 1000);
- 
-
   }
 }

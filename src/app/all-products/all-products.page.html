@@ -11,10 +11,10 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let product of Products let i = index">
-      <ion-avatar slot="start">
+      <ion-avatar slot="start" [routerLink]="['/product', product.id]">
         <ion-img [src]=product.ref></ion-img>
       </ion-avatar>
-      <ion-label [routerLink]="['/product', product.id]">
+      <ion-label>
         <h2>{{ product.name }}</h2>
         <h3>{{ product.price }}€</h3>
         <h4>{{ product.countdownDay }} day {{ product.countdownHour }} hour remaining</h4>

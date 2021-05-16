@@ -23,7 +23,6 @@
   <ion-item>
     <ion-label><h2>CountDown :</h2> {{ countdown }}</ion-label>
   </ion-item>
-
-
-
+  <ion-button *ngIf="userId != actualUserId" (click)="deleteProduct(productRef)"> Make offert </ion-button>
+  <ion-button *ngIf="userId == actualUserId" color="danger" (click)="deleteProduct(productRef)"> Remove </ion-button>
 </ion-content>

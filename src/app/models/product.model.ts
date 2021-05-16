@@ -5,6 +5,7 @@ export class Product {
     name: string;
     description: string;
     price: number;
+    date_limit: Date;
     condition: number;
     sold: boolean;
     ref: string;

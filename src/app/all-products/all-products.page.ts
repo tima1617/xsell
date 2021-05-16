@@ -1,7 +1,6 @@
 import { ProductService } from './../services/product/product.service';
 import { Product } from './../models/product.model';
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
@@ -11,16 +10,15 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class AllProductsPage implements OnInit {
   Products: Product[];
-  test: void;
   url: any;
+
   constructor(
     private ProductService: ProductService,
-    public afSG: AngularFireStorage
+    public afSG: AngularFireStorage,
     ) { }
 
   ngOnInit() {
-
-    let test = this.products();
+    this.products();
   }
 
   products() 
@@ -36,6 +34,7 @@ export class AllProductsPage implements OnInit {
           best_offer_id: e.payload.doc.get('best_offer_id'),
           user_id: e.payload.doc.get('user_id'),
           createTime: e.payload.doc.get('createTime'),
+          date_limit: e.payload.doc.get('date_limit'),
           updateTime: e.payload.doc.get('updateTime'),
           ref: e.payload.doc.get('ref'),
           condition: e.payload.doc.get('condition'),
@@ -43,5 +42,8 @@ export class AllProductsPage implements OnInit {
         } as Product
       })
     })
-  }  
+  }
+  
+
+  
 }

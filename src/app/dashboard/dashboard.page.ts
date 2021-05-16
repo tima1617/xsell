@@ -82,7 +82,6 @@ export class DashboardPage implements OnInit {
         this.navCtrl.navigateBack('');
       }
     }, err => {
-      console.log('err', err);
     });
 
     //Creation du formulaire
@@ -112,7 +111,6 @@ export class DashboardPage implements OnInit {
       return false;
     } else {
       let id = this.paramId;
-      console.log(new Date(this.myForm.value.dob))
       let user = {
         name: this.myForm.value.name,
         email: this.myForm.value.email,

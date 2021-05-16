@@ -70,7 +70,6 @@ export class LoginPage implements OnInit {
             email: user.email,
             uid: user.uid
           }
-          console.log("email : "+user.email)
           //Permet d'ajouter le user dans la bdd si il n'y est pas
           this.crudService.getUser(userAdd.email).subscribe((data)=>{
             this.data = data;
@@ -90,7 +89,8 @@ export class LoginPage implements OnInit {
         if (user) {
           var userAdd = {
             email: user.email,
-            uid: user.uid
+            uid: user.uid,
+            valid: false
           }
           //Permet d'ajouter le user dans la bdd si il n'y est pas
           this.crudService.getUser(userAdd.email).subscribe((data)=>{

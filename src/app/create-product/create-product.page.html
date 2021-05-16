@@ -11,17 +11,14 @@
 
 <ion-content>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
-    <ion-item>
+    <ion-item style="text-align: left;">
       <ion-label position="stacked" class="title">TEST</ion-label>
       <ion-input formControlName="title" type="text" placeholder="Title"></ion-input>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.required">
-        Your name is required.
+        A title is requiered.
       </span>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.minlength">
-        Your name must be 5 chars long.
-      </span>
-      <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.pattern">
-        Your name must contain only letters.
+        Your title must be more than 5 chars long.
       </span>
 
       <ion-input formControlName="price" type="number" min="0" placeholder="Price">€ </ion-input>
@@ -29,26 +26,26 @@
         A starting price is requiered.
       </span>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.price.errors?.pattern">
-        Enter a valid price;
+        Enter a valid price.
       </span>
 
       <ion-label position="stacked">Date limit (00:00)</ion-label>
       <ion-datetime formControlName="dateLimit" [value]="defaultDate" placeholder="May 15, 2021" [min]="today" [max]="maxDate"></ion-datetime>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.dateLimit.errors?.required">
-        Your date of birth is required.
+        A limit date is requiered.
       </span>
+
       <ion-textarea maxlength="300" formControlName="description" type="text" required placeholder="Description (300 chars max)"></ion-textarea>
-     
       <span class="error ion-padding" *ngIf="submitted && errorCtr.description.errors?.required">
         A description is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.description.errors?.minlength">
+        Description must be more than 30 chars long.
       </span>
 
       <ion-input formControlName="state" type="text" maxlength="20" placeholder="State : New, Good, Damaging"></ion-input>
       <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
         A state is requiered.
-      </span>
-      <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.pattern">
-        Enter a valid price ;
       </span>
     </ion-item>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
@@ -76,9 +73,13 @@
       
       Data transfered: {{ snap.bytesTransferred | formatFileSize }}
     </div>    
-    <ion-row>
+    <ion-row style="text-align: center;">
       <ion-col>
-        <ion-button (click)="onSubmit()" color="primary" expand="block">Submit</ion-button>
+        <ion-button  *ngIf="userValid == true"  (click)="onSubmit()" color="primary" expand="block">Submit</ion-button>
+        <span class="error ion-padding" *ngIf="userValid == false">
+          You have to set up your personnal informations before starting selling or buying a product.
+        </span>
+        <ion-button *ngIf="userValid == false"  (click)="setUpInformation()" color="primary" expand="block">Set up your informations</ion-button>
       </ion-col>
     </ion-row>
   </form>

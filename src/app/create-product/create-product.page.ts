@@ -31,6 +31,7 @@ export class CreateProductPage implements OnInit {
   users: User[];
   userEmail: string;
   userId: string;
+  userValid: boolean;
   data:any
   birthday: any;
   today: any;
@@ -95,14 +96,14 @@ export class CreateProductPage implements OnInit {
         this.userEmail = res.email;
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
-            this.userId = e.payload.doc.id
+            this.userId = e.payload.doc.id,
+            this.userValid = e.payload.doc.get('valid')
           })
         });
       } else {
         this.navCtrl.navigateBack('');
       }
     }, err => {
-      console.log('err', err);
     });
 
     const currency="(?!(^0+(\.0+)?$))^\d{1,4}(\.\d{1,2})?$"
@@ -111,7 +112,7 @@ export class CreateProductPage implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       price: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       dateLimit: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(30)]],
       state: ['', [Validators.required]],
       file:  ['', [Validators.required]]
     })
@@ -129,20 +130,7 @@ export class CreateProductPage implements OnInit {
     if (!this.myForm.valid) {
       return false;
     } else {
-      
-      //console.log(new Date(this.myForm.value.dob))
-      //let user = {
-      //  title: this.myForm.value.name,
-      //  email: this.myForm.value.email,
-      //  dob: new Date(this.myForm.value.dob),
-      //  phone : this.myForm.value.phone,
-      //  address_line: this.myForm.value.addressLine,
-      //  city: this.myForm.value.city,
-      //  state: this.myForm.value.state,
-      //  zip: this.myForm.value.zip,
-      //  valid: true
-      //}
-      //this.crudService.updateUser(user,id);
+
       this.trackSnapshot = this.fileUploadTask.snapshotChanges().pipe(
     
         finalize(() => {
@@ -164,12 +152,10 @@ export class CreateProductPage implements OnInit {
               created_at: todayDate,
               user_id: this.userId
             }
-            console.log(this.product)
             this.productService.createProduct(this.product);
             this.isFileUploading = false;
             this.isFileUploaded = true;
           },error=>{
-            console.log(error);
           })
         }),
         tap(snap => {
@@ -178,7 +164,6 @@ export class CreateProductPage implements OnInit {
       )
       this.trackSnapshot.subscribe(() => {
     }, (error) => {
-        console.log(error);
     }, () => {
       this.navCtrl.navigateForward('/all-products');
     });
@@ -217,7 +202,6 @@ uploadImage(event: FileList) {
 
   // Image validation
   if (file.type.split('/')[0] !== 'image') { 
-    console.log('File type is not supported!')
     return;
   }
 
@@ -244,10 +228,12 @@ storeFilesFirebase(image: imgFile) {
   const fileId = this.db.createId();
   
   this.filesCollection.doc(fileId).set(image).then(res => {
-    console.log(res);
   }).catch(err => {
-    console.log(err);
   });
+}
+
+setUpInformation(){
+  this.navCtrl.navigateForward('/dashboard');
 }
 
 

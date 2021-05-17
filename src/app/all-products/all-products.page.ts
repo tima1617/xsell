@@ -2,6 +2,7 @@ import { ProductService } from './../services/product/product.service';
 import { Product } from './../models/product.model';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-all-products',
@@ -22,13 +23,21 @@ export class AllProductsPage implements OnInit {
   timer: any;
   hidevalue: boolean;
 
+
   constructor(
     private ProductService: ProductService,
     public afSG: AngularFireStorage,
-    ) { }
+    public menuCtrl: MenuController
+    ) { 
+    }
 
   ngOnInit() {
     this.products();
+  }
+
+  openMenu()
+  {
+    this.menuCtrl.open();
   }
 
   products() 

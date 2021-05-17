@@ -1,13 +1,8 @@
 <ion-toolbar color="primary">
-  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary">
-  </ion-img>
-
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
   <ion-title>Products</ion-title>
-
-  <ion-buttons slot="primary">
-    <ion-button class="btn btn-primary" slot="primary" (click)="logout()">Log Out</ion-button>
-  </ion-buttons>
 </ion-toolbar>
+
 <ion-content>
   <ion-list *ngIf="!noOffert">
     <ion-item *ngFor="let product of Products let i = index" [routerLink]="['/product', product.id]">
@@ -21,6 +16,5 @@
       </ion-label>
     </ion-item>
   </ion-list>
-  <ion-item *ngIf="noOffert"> No product</ion-item>
-  <ion-button [routerLink]="['/my-products']" > My products </ion-button>
+  <ion-item *ngIf="noOffert"> No product</ion-item>  
 </ion-content>

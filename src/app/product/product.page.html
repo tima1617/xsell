@@ -1,17 +1,13 @@
 <ion-toolbar color="primary">
-  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary">
-  </ion-img>
-
-  <ion-title>{{ name }}</ion-title>
-
-  <ion-buttons slot="primary">
-    <ion-button class="btn btn-primary" slot="primary" (click)="logout()">Log Out</ion-button>
-  </ion-buttons>
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
+    <svg class='ionicon' viewBox='0 0 512 512' [routerLink]="['/all-products']">
+      <path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M249.38 336L170 256l79.38-80M181.03 256H342'/>
+      <path d='M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z' fill='none' stroke='currentColor' stroke-miterlimit='10' stroke-width='32'/>
+    </svg>
+    <ion-title>{{ name }}</ion-title>
 </ion-toolbar>
 
 <ion-content>
-  <ion-button [routerLink]="['/all-products']" > Return </ion-button>
-
   <ion-img *ngIf="productRef"[src]="productRef.ref"></ion-img>
   <ion-item>
   <ion-label><h2>Price :</h2> {{ price }}€</ion-label>

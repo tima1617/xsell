@@ -41,6 +41,7 @@ export class ProductPage implements OnInit {
   users: User[];
   id_user: string;
   best_offer_user_id: string;
+  userValid: boolean;
 
   constructor(    
     private act: ActivatedRoute,
@@ -54,6 +55,21 @@ export class ProductPage implements OnInit {
     private authService: AuthenticateService) { }
   
   ngOnInit() {    
+    this.authService.userDetails().subscribe(res => {
+      if (res !== null) {
+        this.userEmail = res.email;
+        this.crudService.getUser(this.userEmail).subscribe(data => {
+          this.users = data.map(e => {
+            this.userValid = e.payload.doc.get('valid');
+            console.log(this.userValid)
+          })
+        });
+      } else {
+        
+      }
+    }, err => {
+    });
+
     this.productService.getProductDoc(this.id).subscribe(res => {
       if(res != undefined ){
         this.productRef = res;
@@ -68,6 +84,7 @@ export class ProductPage implements OnInit {
         this.maxtime = this.datelimit - today;
         this.bestoffer = this.productRef.best_offer;
         this.best_offer_user_id = this.productRef.best_offer_user_id;
+
 
         this.myForm = this.formBuilder.group({
           offert: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/), Validators.min(Number(this.bestoffer)+1)]],

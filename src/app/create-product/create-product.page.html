@@ -1,0 +1,76 @@
+<ion-toolbar color="primary"  style="margin-top: 5%;">
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
+  <ion-title>Sell product</ion-title>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item style="text-align: left;">
+      <ion-label position="stacked" class="title">Informations</ion-label>
+      <ion-input formControlName="title" type="text" placeholder="Title"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.required">
+        A title is requiered.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.title.errors?.minlength">
+        Your title must be more than 5 chars long.
+      </span>
+
+      <ion-input formControlName="price" type="number" min="0" placeholder="Price">€ </ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.price.errors?.required">
+        A starting price is requiered.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.price.errors?.pattern">
+        Enter a valid price.
+      </span>
+
+      <ion-textarea maxlength="300" formControlName="description" type="text" required placeholder="Description (300 chars max)"></ion-textarea>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.description.errors?.required">
+        A description is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.description.errors?.minlength">
+        Description must be more than 30 chars long.
+      </span>
+
+      <ion-input formControlName="state" type="text" maxlength="20" placeholder="State : New, Good, Damaging"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
+        A state is requiered.
+      </span>
+
+    </ion-item>
+    <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
+      <ion-card-header>
+        <ion-card-title class="title upload">Choose Images to Upload</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button color="primary" size="medium">
+          <input type="file" (change)="uploadImage($event.target.files)" formControlName="file" />
+        </ion-button>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.file.errors?.required">
+          An image of the product is required.
+        </span>
+      </ion-card-content>
+    </ion-card>
+    <h6 class="ion-text-center info">Your product will be available for auction during 30 days.</h6>
+    <!-- File upload progress bar -->
+    <div *ngIf="percentageVal | async as percentage">
+      Progress: {{ percentage | number }}%
+      <ion-progress-bar value="{{ percentage / 100 }}"></ion-progress-bar>
+    </div>
+
+    <div *ngIf="trackSnapshot | async as snap">
+      File size: {{ snap.totalBytes | formatFileSize }} 
+      
+      Data transfered: {{ snap.bytesTransferred | formatFileSize }}
+    </div>    
+    <ion-row style="text-align: center;">
+      <ion-col>
+        <ion-button  *ngIf="userValid == true"  (click)="onSubmit()" color="primary" expand="block">Submit</ion-button>
+        <span class="error ion-padding" *ngIf="userValid == false">
+          You have to set up your personnal informations before starting selling or buying a product.
+        </span>
+        <ion-button *ngIf="userValid == false"  (click)="setUpInformation()" color="primary" expand="block">Set up your informations</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
+

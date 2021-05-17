@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary"  style="margin-top: 5%;">
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
+<div style="height: 30vh;">
+  <ion-img class="logo" src="../../assets/img/logo.png"></ion-img>
+</div>
 
 <ion-content class="ion-padding">
   <form class="form" [formGroup]="validations_form" (ngSubmit)="tryRegister(validations_form.value)">
@@ -39,4 +42,11 @@
     <label class="success-message">{{successMessage}}</label>
   </form>
   <p class="go-to-login">Already have an account? <a (click)="goLoginPage()">Try to Log In.</a></p>
+  <form *ngIf="!user">
+    <ion-row>
+      <ion-col> 
+        <ion-button type="submit" color="primary" (click)="loginGoogle()" expand="block">Sign up with Google</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

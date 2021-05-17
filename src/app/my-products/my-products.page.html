@@ -1,0 +1,26 @@
+<ion-toolbar color="primary" style="margin-top: 5%;">
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
+  <ion-title>My products</ion-title>
+</ion-toolbar>
+<ion-content>
+  <ion-list *ngIf="!noOffert" >
+    <ion-item *ngFor="let product of Products let i = index">
+      <ion-avatar slot="start">
+        <ion-img [src]="product.ref"></ion-img>
+      </ion-avatar>
+      <ion-label [routerLink]="['/product', product.id]">
+        <h2>{{ product.name }}</h2>
+        <h3>{{ product.price }}€</h3>
+        <div *ngIf="product.sold">
+          <ion-button color="danger">Sold</ion-button>
+        </div>
+        <div *ngIf="!product.sold">
+          <ion-button>In Progress</ion-button>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-item *ngIf="noOffert" >
+    No product
+  </ion-item>
+</ion-content>

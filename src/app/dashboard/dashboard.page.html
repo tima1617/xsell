@@ -1,28 +1,69 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar color="primary"  style="margin-top: 5%;">
+  <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
+  <ion-title>My account</ion-title>
+</ion-toolbar>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-item>
+      <ion-label position="stacked" class="title">Address</ion-label>
+      <ion-input formControlName="name" type="text" [(ngModel)]="paramName" placeholder="Your name"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+        Your name is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+        Your name must be 5 chars long.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.pattern">
+        Your name must contain only letters.
+      </span>
 
-  <ion-grid>
+      <ion-input formControlName="email" type="email" [(ngModel)]="paramEmail" placeholder="Email" disabled></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
+        Your email is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
+        Enter a valid email.
+      </span>
+
+      <ion-input maxlength="10" formControlName="phone" type="text" required [(ngModel)]="paramPhone" placeholder="Phone"></ion-input>
+      
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.required">
+        Your phone number is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.pattern">
+        Your name must contain only numbers.
+      </span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" class="title">Address</ion-label>
+      <ion-input formControlName="addressLine" [(ngModel)]="paramAddressLine" placeholder="Address Line"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.addressLine.errors?.required">
+        Your address Line is required.
+      </span>
+      <ion-input formControlName="city" [(ngModel)]="paramCity" placeholder="City"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.city.errors?.required">
+        Your city is required.
+      </span>
+      <ion-input formControlName="state" [(ngModel)]="paramState" placeholder="State"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
+        Your state is required.
+      </span>
+      <ion-input formControlName="zip" [(ngModel)]="paramZip" placeholder="Zip Code"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.zip.errors?.required">
+        Your zip code is required.
+      </span>
+    </ion-item>
+
     <ion-row>
-      <ion-col text-center>
-        Welcome to Dashboard!
+      <ion-col>
+        <ion-button type="submit" color="primary" expand="block">Submit</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
-        Your Registered EmailID : {{userEmail}}
+      <ion-col>
+        <ion-button type="ion-button" color="danger" expand="block" (click)="logout()">Disconnect</ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
-
-
+  </form>
 </ion-content>
-<ion-footer (click)="logout()">
-  <ion-toolbar color="secondary">
-    <ion-title>Log out</ion-title>
-  </ion-toolbar>
-</ion-footer>

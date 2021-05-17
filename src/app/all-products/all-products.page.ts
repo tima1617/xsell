@@ -63,6 +63,8 @@ export class AllProductsPage implements OnInit {
           ref: e.payload.doc.get('ref'),
           condition: e.payload.doc.get('condition'),
           sold: false,
+          best_offer: e.payload.doc.get('best_offer'),
+          user_id_best_offer: e.payload.doc.get('user_id_best_offer'),
           countdownDay: Math.floor(this.maxtime / (60 * 60 * 24)),
           countdownHour: Math.floor((this.maxtime % (60 * 60 * 24)) / (60 * 60))
         } as Product

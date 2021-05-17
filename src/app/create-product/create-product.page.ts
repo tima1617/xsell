@@ -144,6 +144,7 @@ export class CreateProductPage implements OnInit {
             this.product = {
               name: this.myForm.value.title,
               price: this.myForm.value.price,
+              best_offer: this.myForm.value.price,
               date_limit: new Date(now.getFullYear(), now.getMonth(), now.getDate()+30),
               description : this.myForm.value.description,
               condition: this.myForm.value.state,

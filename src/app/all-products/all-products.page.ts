@@ -83,7 +83,6 @@ export class AllProductsPage implements OnInit {
           this.minutes = Math.floor((this.maxtime % (60 * 60)) / (60));
           this.seconds = Math.floor((this.maxtime % (60)));
           this.countdown = this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s "
-          console.log(this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s ")
 
           if(this.maxtime>0){
             this.hidevalue = false;

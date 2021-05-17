@@ -19,7 +19,6 @@ export class MyProductsPage implements OnInit {
     this.authService.userDetails().subscribe(res => {
       this.userId = res.uid;
       this.products(this.userId)
-      console.log(this.userId)
     })     
   }
 

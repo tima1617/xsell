@@ -65,11 +65,6 @@ export class DashboardPage implements OnInit {
             this.paramId = e.payload.doc.id;
             this.paramName = e.payload.doc.get('name'),
             this.paramEmail = e.payload.doc.get('email');
-            if(e.payload.doc.get('dob') != undefined){
-              this.paramDob = this.formatDate(e.payload.doc.get('dob').seconds *1000).toString();
-            }else{
-              this.paramDob = "2020-02-02";
-            }
             this.paramPhone = e.payload.doc.get('phone');
             this.paramAddressLine = e.payload.doc.get('address_line');
             this.paramCity = e.payload.doc.get('city');
@@ -88,7 +83,6 @@ export class DashboardPage implements OnInit {
     this.myForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z_ ]*$')]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      dob: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       addressLine: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -114,7 +108,6 @@ export class DashboardPage implements OnInit {
       let user = {
         name: this.myForm.value.name,
         email: this.myForm.value.email,
-        dob: new Date(this.myForm.value.dob),
         phone : this.myForm.value.phone,
         address_line: this.myForm.value.addressLine,
         city: this.myForm.value.city,

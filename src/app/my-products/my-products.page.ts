@@ -18,8 +18,9 @@ export class MyProductsPage implements OnInit {
   ngOnInit() {
     this.authService.userDetails().subscribe(res => {
       this.userId = res.uid;
-          this.products(this.userId)
-        })     
+      this.products(this.userId)
+      console.log(this.userId)
+    })     
   }
 
   products(id) 

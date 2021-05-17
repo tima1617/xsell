@@ -60,7 +60,6 @@ export class CrudService {
     .update({
       name: user.name,
       email: user.email,
-      dob: user.dob,
       phone: user.phone,
       address_line: user.address_line,
       city: user.city,

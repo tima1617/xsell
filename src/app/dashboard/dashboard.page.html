@@ -26,11 +26,6 @@
         Enter a valid email.
       </span>
 
-      <ion-label position="stacked">Date of birth</ion-label>
-      <ion-datetime formControlName="dob" [value]="defaultDate" [(ngModel)]="paramDob" placeholder="May 15, 2021" [max]="birthday"></ion-datetime>
-      <span class="error ion-padding" *ngIf="submitted && errorCtr.dob.errors?.required">
-        Your date of birth is required.
-      </span>
       <ion-input maxlength="10" formControlName="phone" type="text" required [(ngModel)]="paramPhone" placeholder="Phone"></ion-input>
       
       <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.required">

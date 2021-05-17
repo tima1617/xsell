@@ -8,10 +8,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class OffertService {
 
-  constructor(private angularFirestore: AngularFirestore, private db: AngularFirestore) { }
+  constructor(private angularFirestore: AngularFirestore) { }
 
   updateProductWithOffer(offert){
-    return this.db
+    return this.angularFirestore
     .collection("products")
     .doc(offert.id_product)
     .update({
@@ -21,6 +21,6 @@ export class OffertService {
   }
 
   createOffer(offert){
-    return this.db.collection("offerts").add(offert);
+    return this.angularFirestore.collection("offerts").add(offert);
   }
 }

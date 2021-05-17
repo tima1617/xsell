@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OffertService } from './../services/product/offert.service';
 import { CrudService } from './../services/crud.service';
 import { User } from '../models/user.model';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-product',
@@ -89,9 +90,6 @@ export class ProductPage implements OnInit {
           offert: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/), Validators.min(Number(this.bestoffer)+1)]],
         })
 
-        this.AuthenticateService.userDetails().subscribe(res => {
-          this.actualUserId = res.uid    
-        })
       }
     });
 
@@ -139,15 +137,12 @@ export class ProductPage implements OnInit {
     if (!this.myForm.valid) {
       return false;
     } else {
-      this.authService.userDetails().subscribe(res => {
-        if (res !== null) {
-          this.userEmail = res.email;
+      let test = this.myForm.value.offert
           this.crudService.getUser(this.userEmail).subscribe(data => {
             this.users = data.map(e => {
               this.id_user = e.payload.doc.get('uid');
-              let id = this.id;
               let offert = {
-                best_offer: this.myForm.value.offert,
+                best_offer: test,
                 date: new Date(),
                 id_product: this.id,
                 id_user: this.id_user,
@@ -157,14 +152,6 @@ export class ProductPage implements OnInit {
               this.toggleOffert();
             })
           });
-        } else {
-          
-        }
-      }, err => {
-      });
-
+        } 
     }
   }
-
-
-}

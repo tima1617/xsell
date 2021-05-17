@@ -96,7 +96,7 @@ export class CreateProductPage implements OnInit {
         this.userEmail = res.email;
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
-            this.userId = e.payload.doc.id,
+            this.userId = e.payload.doc.get('uid'),
             this.userValid = e.payload.doc.get('valid')
             console.log(this.userValid)
           })
@@ -112,7 +112,6 @@ export class CreateProductPage implements OnInit {
     this.myForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       price: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      dateLimit: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(30)]],
       state: ['', [Validators.required]],
       file:  ['', [Validators.required]]
@@ -138,14 +137,14 @@ export class CreateProductPage implements OnInit {
           // Retreive uploaded image storage path
           this.UploadedImageURL = this.imageRef.getDownloadURL();
           let todayDate = Date.now();
-    
+          const now = new Date();
     
     
           this.UploadedImageURL.subscribe(resp=>{
             this.product = {
               name: this.myForm.value.title,
               price: this.myForm.value.price,
-              date_limit: new Date(this.myForm.value.dateLimit),
+              date_limit: new Date(now.getFullYear(), now.getMonth(), now.getDate()+30),
               description : this.myForm.value.description,
               condition: this.myForm.value.state,
               sold: false,

@@ -35,6 +35,7 @@
       <span class="error ion-padding" *ngIf="submitted && errorCtr.state.errors?.required">
         A state is requiered.
       </span>
+
     </ion-item>
     <ion-card class="ion-text-center" *ngIf="!isUploading && !isUploaded">
       <ion-card-header>
@@ -49,7 +50,7 @@
         </span>
       </ion-card-content>
     </ion-card>
-
+    <h6 class="ion-text-center info">Your product will be available for auction during 30 days.</h6>
     <!-- File upload progress bar -->
     <div *ngIf="percentageVal | async as percentage">
       Progress: {{ percentage | number }}%

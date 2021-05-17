@@ -21,7 +21,23 @@
     <ion-label><h2>CountDown :</h2> {{ countdown }}</ion-label>
   </ion-item>
 
-  <ion-button *ngIf="userId != actualUserId" (click)="deleteProduct()"> Make offert </ion-button>
-  <ion-button *ngIf="userId == actualUserId" color="danger" (click)="deleteProduct(productRef)"> Remove </ion-button>
+  <ion-button *ngIf="userId != actualUserId" (click)="toggleOffert()"> Make offert </ion-button>
+  <ion-button *ngIf="userId == actualUserId" color="danger" (click)="deleteProduct()"> Remove </ion-button>
 
+  <form *ngIf="displayOffert" [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+    <ion-input formControlOffert="offert" type="number" [(ngModel)]="paramOffert" placeholder="Your offert"></ion-input>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.offert.errors?.required">
+        Your offert is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && errorCtr.offert.errors?.maximum">
+        Your offert required to be up than the best offert.
+        The best offert is actualy : 
+      </span>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="block">Make offert</ion-button>
+        </ion-col>
+      </ion-row>
+  </form>
 </ion-content>

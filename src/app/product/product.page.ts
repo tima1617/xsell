@@ -1,8 +1,9 @@
+import { ModalOffertPage } from './../modal-offert/modal-offert.page';
+import { ModalController } from '@ionic/angular';
 import { ProductService } from './../services/product/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticateService } from './../services/authentication.service';
-import { User } from './../models/user.model';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -13,6 +14,7 @@ import { NavController } from '@ionic/angular';
 export class ProductPage implements OnInit {
   id = this.act.snapshot.paramMap.get('id');
   actualUserId: string;
+  displayOffert: boolean = false;
   userId: string;
   productRef: any;
   name: string;
@@ -33,7 +35,8 @@ export class ProductPage implements OnInit {
     private act: ActivatedRoute,
     private productService: ProductService, 
     private navCtrl: NavController, 
-    private AuthenticateService: AuthenticateService) { }
+    private AuthenticateService: AuthenticateService,
+    public modalController: ModalController) { }
   
   ngOnInit() {    
     this.productService.getProductDoc(this.id).subscribe(res => {
@@ -84,4 +87,11 @@ export class ProductPage implements OnInit {
     this.productService.deleteProduct(this.id);
     this.navCtrl.navigateForward('/all-products');
   }
+
+  toggleOffert()
+  {
+    this.displayOffert = !this.displayOffert;
+  }
+
+
 }

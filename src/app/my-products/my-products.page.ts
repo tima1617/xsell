@@ -16,11 +16,10 @@ export class MyProductsPage implements OnInit {
   constructor(private ProductService: ProductService, private authService: AuthenticateService) { }
 
   ngOnInit() {
-    this.authService.userDetails().subscribe(res => {
-      this.userId = res.uid;
-      this.products(this.userId)
-      console.log(this.userId)
-    })     
+   this.authService.userDetails().subscribe(res => {
+     this.userId = res.uid;
+     this.products(this.userId)
+   })     
   }
 
   products(id) 

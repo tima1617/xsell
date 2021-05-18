@@ -9,6 +9,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { User } from './../models/user.model';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class DashboardPage implements OnInit {
     private authService: AuthenticateService,
     private db: AngularFirestore,
     private crudService: CrudService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private fireAuth: AngularFireAuth
   ) {
    }
 
@@ -121,14 +123,10 @@ export class DashboardPage implements OnInit {
   }
 
 
-
   logout() {
-    this.authService.logoutUser()
-      .then(res => {
-        this.navCtrl.navigateBack('');
-      })
-      .catch(error => {
-      })
+    this.fireAuth.signOut().then(() => {
+      this.navCtrl.navigateForward('/login');
+    });
   }
 
 

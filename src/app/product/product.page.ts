@@ -62,6 +62,7 @@ export class ProductPage implements OnInit {
         this.crudService.getUser(this.userEmail).subscribe(data => {
           this.users = data.map(e => {
             this.userValid = e.payload.doc.get('valid');
+            this.actualUserId = e.payload.doc.get('uid');
           })
         });
       } else {

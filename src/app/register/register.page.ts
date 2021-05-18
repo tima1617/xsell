@@ -64,7 +64,8 @@ export class RegisterPage implements OnInit {
             email: user.email,
             uid: user.uid,
             role: 0,
-            valid: false
+            valid: false,
+            created_at: new Date()
           }
           this.crudService.createUser(userAdd);
         } else {
@@ -85,7 +86,8 @@ export class RegisterPage implements OnInit {
             email: user.email,
             uid: user.uid,
             role: 0,
-            valid: false
+            valid: false,
+            created_at: new Date()
           }
           //Permet d'ajouter le user dans la bdd si il n'y est pas
           this.crudService.getUser(userAdd.email).subscribe((data)=>{

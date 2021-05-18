@@ -10,5 +10,6 @@ export class Product {
     sold: boolean;
     ref: string;
     best_offer_id: number;
-    user_id: string
+    user_id: string;
+    best_offer: number;
 }

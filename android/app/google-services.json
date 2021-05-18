@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "299676784252",
+    "firebase_url": "https://xsell-16be6-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "xsell-16be6",
+    "storage_bucket": "xsell-16be6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299676784252:android:a32336a8443d506594dbf9",
+        "android_client_info": {
+          "package_name": "com.xsell.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299676784252-ig4jk6g4jqkei7i75r68ggd6mkeajnlg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xsell.app",
+            "certificate_hash": "4b7144c42c1e36054e804ea32f2ff2da2c46615f"
+          }
+        },
+        {
+          "client_id": "299676784252-9au8e81andfn1aj6ijksusdg3k3odmr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnAKlhoPSsOG5XdDnF994cU8HujIezc0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299676784252-9au8e81andfn1aj6ijksusdg3k3odmr8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "299676784252-bd211mareoan1uacj86mgvkae4meu3ai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.xsell.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

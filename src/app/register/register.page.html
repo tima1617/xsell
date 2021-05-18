@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary"  style="margin-top: 5%;">
+  <ion-toolbar color="primary">
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,7 +8,7 @@
 </div>
 
 <ion-content class="ion-padding">
-  <form class="form" [formGroup]="validations_form" (ngSubmit)="tryRegister(validations_form.value)">
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="tryRegister(validations_form.value)" text-centered>
 
     <ion-item>
       <ion-label position="floating" color="primary">Email</ion-label>

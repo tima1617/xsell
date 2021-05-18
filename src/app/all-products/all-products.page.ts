@@ -63,6 +63,8 @@ export class AllProductsPage implements OnInit {
           ref: e.payload.doc.get('ref'),
           condition: e.payload.doc.get('condition'),
           sold: false,
+          best_offer: e.payload.doc.get('best_offer'),
+          user_id_best_offer: e.payload.doc.get('user_id_best_offer'),
           countdownDay: Math.floor(this.maxtime / (60 * 60 * 24)),
           countdownHour: Math.floor((this.maxtime % (60 * 60 * 24)) / (60 * 60))
         } as Product
@@ -81,7 +83,6 @@ export class AllProductsPage implements OnInit {
           this.minutes = Math.floor((this.maxtime % (60 * 60)) / (60));
           this.seconds = Math.floor((this.maxtime % (60)));
           this.countdown = this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s "
-          console.log(this.days + "d " + this.hours + "h " + this.minutes + "m " + this.seconds + "s ")
 
           if(this.maxtime>0){
             this.hidevalue = false;

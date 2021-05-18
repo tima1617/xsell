@@ -1,4 +1,4 @@
-<ion-toolbar color="primary" style="margin-top: 5%;">
+<ion-toolbar color="primary">
   <ion-img style="width: 10%; height: 10%;" src="../../assets/img/logo.png" slot="secondary"></ion-img>
   <ion-title>My products</ion-title>
 </ion-toolbar>
@@ -23,4 +23,7 @@
   <ion-item *ngIf="noOffert" >
     No product
   </ion-item>
+  <div style="text-align: center;margin-top:10%;">
+    <ion-button [routerLink]="['/create-product']">Create product</ion-button>
+  </div>
 </ion-content>
